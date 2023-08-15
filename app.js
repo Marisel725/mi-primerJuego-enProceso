@@ -203,10 +203,11 @@ function calcularResultado(opcionDelUsuario,opcionMaquina){
           userImg.style.borderRadius="50%"
           machineImg.style.background="green"
           machineImg.style.borderRadius = "50%"; 
-        } else (puntajeJugador === puntajeMaquina)
+        } else if (puntajeJugador === puntajeMaquina) {
           resultadoEnTexto.innerHTML = "La partida terminó en empate";
           userImg.style.background="none"
           machineImg.style.background="none"
+        }
         
 
         
