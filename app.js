@@ -1,5 +1,5 @@
 
-//Se definen constantes para representar las opciones de juego (piedra, papel y tijera) y los resultados (empate, ganaste y perdiste).
+
 const PIEDRA = "rock";
 const PAPEL = "paper";
 const TIJERA = "scissors";
@@ -15,16 +15,17 @@ let puntajeMaquina = 0;
 
 //Se declara la variable jugando que se utiliza para evitar que el jugador realice más de una jugada mientras se está procesando la partida actual.
 let jugando = false;
-//Se obtienen las referencias a los elementos del DOM que se utilizarán en el juego, como los botones de las opciones, las imágenes para mostrar las selecciones del jugador y la máquina, y el elemento donde se mostrará el resultado del juego.
+
 const piedraBoton = document.getElementById("PIEDRA");
 const papelBoton = document.getElementById("PAPEL");
 const tijeraBoton = document.getElementById("TIJERA");
-const resultadoEnTexto = document.getElementById("texto");
+const resultadoEnTexto = document.getElementById("texto-oculto");
 const userImg = document.getElementById("user-img");
-const machineImg = document.getElementById("machine-img")
-const resultado = document.getElementById("resultado")
+const machineImg = document.getElementById("machine-img");
+const resultado = document.getElementById("resultado");
+const jugarDeNuevoButton = document.getElementById("jugar-de-nuevo");
+jugarDeNuevoButton.style.display = "none";
 
-//Se agregan eventos de click a cada botón (piedraBoton, papelBoton, tijeraBoton) para que cuando el jugador haga clic en una opción, se llame a la función jugar() pasando la opción seleccionada como argumento.
 piedraBoton.addEventListener("click", () =>{ 
     jugar (PIEDRA);
 })
@@ -37,7 +38,11 @@ papelBoton.addEventListener("click", () =>{
         jugar (TIJERA);
     })
 
-//La función iniciarJuego() es responsable de dar la bienvenida al jugador, solicitar su nombre y almacenarlo en la variable nombreJugador. Además, convierte el nombre del jugador a mayúsculas para mantener consistencia.
+jugarDeNuevoButton.addEventListener("click", () => {
+    jugarDeNuevo ();
+});
+
+
 function iniciarJuego() {
     let nombre = "";
   
@@ -103,11 +108,10 @@ function jugar (opcionDelUsuario) {
         
         machineImg.src= "imgJuego/" + opcionMaquina + ".svg";
         
-    //Finalmente, dependiendo del resultado del juego, se muestra un mensaje apropiado en 
-    //el elemento resultadoEnTexto para informar al jugador si ganó, perdió o empató.
+    
         switch(resultado){
             case EMPATE:
-                resultadoEnTexto.innerHTML= "¡Ups! empataste... vamos por la revancha ?"
+                resultadoEnTexto.innerHTML= "¡Ups! empataste."
              break;
             case GANASTE:
                 resultadoEnTexto.innerHTML= "Muy bien! GANASTE "
@@ -126,17 +130,18 @@ function jugar (opcionDelUsuario) {
 //se incrementa el valor de intentos en 1 para contar esa partida como un intento jugado.
         
         if (intentos === 3) {
+            piedraBoton.disabled = true;
+            papelBoton.disabled = true;
+            tijeraBoton.disabled = true;
             mostrarGanador();
-                
-    
-
-            // Reseteamos los intentos y puntajes para la siguiente partida
+            finalizarJuego();
+            
             intentos = 0;
             puntajeJugador = 0;
             puntajeMaquina = 0;
+    
+            }
         
-          }
-
         jugando = false;
 
     }, 2000);
@@ -187,25 +192,67 @@ function calcularResultado(opcionDelUsuario,opcionMaquina){
 
     function mostrarGanador() {
         if (puntajeJugador > puntajeMaquina) {
-          resultadoEnTexto.innerHTML = `¡Felicidades! Ganaste la partida.Tu puntaje: ${puntajeJugador} vs Puntaje de tu oponente:${puntajeMaquina}`;
+          resultadoEnTexto.innerHTML = "¡Felicidades! Ganaste la partida";
           userImg.style.background = "green"
           userImg.style.borderRadius ="50%"
           machineImg.style.background= "red"
           machineImg.style.borderRadius = "50%"
         } else if (puntajeMaquina > puntajeJugador) {
-          resultadoEnTexto.innerHTML = `¡Ups! Perdiste la partida.Tu puntaje: ${puntajeJugador} vs Puntaje de tu oponente:${puntajeMaquina}`
+          resultadoEnTexto.innerHTML = "¡Ups! Perdiste la partida"
           userImg.style.background= "red",
           userImg.style.borderRadius="50%"
           machineImg.style.background="green"
           machineImg.style.borderRadius = "50%"; 
-        } else if (puntajeJugador === puntajeMaquina){
-          resultadoEnTexto.innerHTML = `La partida terminó en empate`;
+        } else (puntajeJugador === puntajeMaquina)
+          resultadoEnTexto.innerHTML = "La partida terminó en empate";
           userImg.style.background="none"
           machineImg.style.background="none"
+        
+
+        
         }
-      }
+
+        function finalizarJuego() {
+        
+            const jugarDeNuevoButton = document.getElementById("jugar-de-nuevo");
+            jugarDeNuevoButton.style.display = "block";
+        
+            
+             }
+        
+
+function jugarDeNuevo() {
+    piedraBoton.disabled = false;
+    papelBoton.disabled = false;
+    tijeraBoton.disabled = false;
+
+    intentos = 0;
+    puntajeJugador = 0;
+    puntajeMaquina = 0;
+    
+    const jugarDeNuevoButton = document.getElementById("jugar-de-nuevo");
+    jugarDeNuevoButton.style.display = "none";
+
+    resultadoEnTexto.innerHTML = "";
+    userImg.src = "imgJuego/rock.svg";
+    machineImg.src = "imgJuego/rock.svg";
+
+    userImg.style.background = "none";
+    machineImg.style.background = "none";
+    userImg.style.borderRadius = "0";
+    machineImg.style.borderRadius = "0";
+}
+
+
+
+
+
 
       
+
+    
+
+    
 
       
 

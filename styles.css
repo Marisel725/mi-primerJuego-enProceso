@@ -41,10 +41,10 @@ h1{
 
 
 
-#texto {
-    font-size: 18px;
+#texto-oculto {
+    font-size: 15px;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
 
 
 }
@@ -67,6 +67,12 @@ button{
     margin: 5px;
 }
 
+.texto-de-escoger {
+    color:#fff ;
+    border-radius: .5rem !important;;
+    font-size: 15px;
+}
+
 footer {
     text-align: center;
     padding: 10px;
@@ -75,3 +81,22 @@ footer {
     font-style:oblique;
 
 }
+
+.jugar-de-nuevo-button {
+    display: block;
+    margin: 3% auto; 
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white; 
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; 
+}
+
+.jugar-de-nuevo-button:hover {
+    background-color: #45a049;
+
+}
+
